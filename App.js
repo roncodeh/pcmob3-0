@@ -1,14 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+
+import { names } from "./name";
+
+const namesAsObjects = names.map((item) => {
+  return { 
+    name: item, 
+  };
+});
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const renderName = ({ item }) => {
+  return <Text>{item.name}</Text>
+};
+
+return (
+  <SafeAreaView style={styles.container}>
+    <FlatList
+  data={namesAsObjects}
+  renderItem={renderName}
+  keyExtractor={(item) => item.name}
+  />
+  </SafeAreaView>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -18,3 +32,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+}
